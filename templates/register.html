@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="{% static 'css/static.css'  %}"
+    <style>
+         
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>User Registration</h2>
+        <form action="{% url 'registerpage' %}" method="POST">
+            {% csrf_token %}
+      
+            <div class="form-group">
+                <label for="uname">Username</label>
+                <input type="text" id="uname" name="uname" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" placeholder="Enter your first name" required>
+            </div>
+            <div class="form-group">
+                <label for="sname">Last Name</label>
+                <input type="text" id="sname" name="sname" placeholder="Enter your last name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="pname">Password</label>
+                <input type="password" id="pname" name="pname" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <label for="rpname">Confirm Password</label>
+                <input type="password" id="rpname" name="rpname" placeholder="Confirm your password" required>
+            </div>
+            <button type="submit">Register</button>
+            <div class="login-link">
+                Already have an account? <a href="">Login here</a>
+            </div>
+                   <center><font color="red">{{msg}}</font></center>
+        </form>
+         
+    </div>
+</body>
+</html>

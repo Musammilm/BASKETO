@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <title>Document</title>
+
+    <style>
+        .navbar {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 10px;
+
+            background-color: orange;
+
+            color: #fff;
+
+        }
+
+
+        .nav-links {
+            color: white;
+            list-style-type: none;
+
+        }
+
+
+        .logo {
+
+            font-size: 32px;
+
+        }
+
+
+
+        .menu {
+
+            display: flex;
+
+            gap: 2em;
+
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            margin-right: 50px;
+
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            font-size: x-large;
+        }
+
+
+
+
+        img {
+            margin: 100px;
+            height: 400px;
+            width: 350px;
+        }
+
+        .main-div {
+            display: flex;
+        }
+
+        .title {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .details {
+            margin: 80px;
+            padding-left: 100px;
+        }
+
+        p {
+            font-size: x-large;
+        }
+
+        .list {
+            display: grid;
+            width: 400px;
+            margin-top: 20px;
+            gap: 0em;
+            font-weight: 500;
+            line-height: 1.8;
+        }
+
+
+        button {
+            margin-left: 100px;
+            margin-top: 15px;
+            background-color: orange;
+            color: white;
+            border-color: white;
+        }
+
+
+
+
+
+
+
+
+        footer {
+            margin-top: 100px;
+            background: orange;
+            height: auto;
+            width: 98.5vw;
+            margin: 0px;
+            padding-top: 40px;
+            color: #fff;
+            margin-bottom: -50px;
+        }
+
+        .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .footer-content h3 {
+            font-size: 2.1rem;
+            font-weight: 500;
+            text-transform: capitalize;
+            line-height: 3rem;
+        }
+
+        .footer-content p {
+            max-width: 500px;
+            margin: 10px auto;
+            line-height: 28px;
+            font-size: 14px;
+            color: white;
+        }
+
+        .footer-div {
+            margin-top: 40px;
+        }
+
+        .socials {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0 3rem 0;
+        }
+
+        .socials li {
+            margin: 0 10px;
+        }
+
+        .socials a {
+            text-decoration: none;
+            color: #fff;
+            border: 1.1px solid white;
+            padding: 5px;
+
+            border-radius: 50%;
+
+        }
+
+        .socials a i {
+            font-size: 1.1rem;
+            width: 20px;
+
+
+            transition: color .4s ease;
+
+        }
+
+        .socials a:hover i {
+            color: aqua;
+        }
+    </style>
+</head>
+
+
+
+
+<body>
+
+
+    <nav class="navbar">
+        <div class="logo">BASKETO</div>
+        <ul class="nav-links">
+            <div class="menu">
+
+                <li><a href="/">Home</a></li>
+                {% if user.is_authenticated %}
+
+                <li><a href="{% url 'logoutpage'  %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'loginpage'  %}">Login</a></li>
+                <li><a href="{% url 'registerpage'  %}">Register</a></li>
+                {% endif %}
+
+            </div>
+        </ul>
+    </nav>
+    <h1 class="title">Product Details</h1>
+
+
+
+    <div class="main-div">
+        {% for j in pro %}
+        <div class="image">
+            <img src="{{ j.image.url }}" alt="Product 1 Image">
+        </div>
+        <div class="details">
+            <p>Name: {{ j.name }}</p>
+            <p>Description: {{ j.description }}</p>
+            <p>Price: ${{ j.price }}</p>
+            <div class="list">
+               
+                <form action="{% url 'cart_new' %}?id={{j.id}}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="broid" value="{{ j.id }}">
+                    Quantity : <input type="text" name="quantity" required> 
+                   
+            </div>
+            <button type="submit">Add to cart</button>
+            </form>
+        
+        </div>
+        {% endfor %}
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="footer-div">
+        <footer>
+            <div class="footer-content">
+                <h3>BASKETO</h3>
+                <p>Basketo is a vibrant and user-friendly e-commerce platform designed to make online shopping
+                    effortless and fun.
+                    The name evokes the idea of a "basket" full of diverse products,
+                    catering to a wide range of customer needs and desires. Whether you're looking for the
+                    latest tech gadgets, fashion trends,
+                    home essentials, or unique gifts, Basketo offers an expansive collection of high-quality
+                    products at competitive prices.
+                    The platform is built with a focus on seamless browsing, secure payment options, and fast
+                    delivery, providing customers with an exceptional shopping experience. Basketo brings a
+                    modern, stylish approach to e-commerce,
+                    making it the go-to destination for all your online shopping needs.</p>
+                <ul class="socials">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
